@@ -14,7 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        // default guard was web before but changed it to user.
+        'guard' => 'user',
         'passwords' => 'users',
     ],
 
@@ -36,9 +37,16 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        // It was web by default, changed it
+        'user' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+
+        // custom
+        'vendor' => [
+            'driver' => 'session',
+            'provider' => 'vendors',
         ],
 
         'api' => [
@@ -70,6 +78,13 @@ return [
             'model' => App\User::class,
         ],
 
+        // custom
+        'vendors' => [
+            'driver' => 'eloquent',
+            'model' => App\Vendor::class,
+        ],
+
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -94,9 +109,17 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_resets',
+            'table' => 'users_password_resets',
             'expire' => 60,
         ],
+        
+        //custom
+        'vendors' => [
+            'provider' => 'vendors',
+            'table' => 'vendors_password_resets',
+            'expire' => 60,
+        ],
+
     ],
 
 ];
