@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth\Vendor;
 
 use App\Vendor;
 use Illuminate\Http\Request;
-use Illuminate\Auth\Events\Verified;
+use App\Events\VendorVerified;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 
@@ -60,7 +60,7 @@ class VerificationController extends Controller
     {
         $vendor = Vendor::findorfail($request->route('id'));
         if ( $vendor->markEmailAsVerified()) {
-            event(new Verified($vendor));
+            event(new VendorVerified($vendor));
         }
     
         return redirect($this->redirectPath())->with('verified', true);

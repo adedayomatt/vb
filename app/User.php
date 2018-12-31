@@ -17,7 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'firstname', 'lastname', 'username', 'email',  'password',
     ];
 
     /**
@@ -48,5 +48,8 @@ class User extends Authenticatable implements MustVerifyEmail
 		$this->notify(new \App\Notifications\sendUserPasswordResetNotification($token));
 	}  
 
+    public function username(){
+        return '@'.$this->username;
+    }
 
 }

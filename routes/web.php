@@ -57,7 +57,22 @@ Route::group(['middleware' => 'auth:vendor'], function(){
 
 // Verified vendors only
 Route::group(['middleware' => ['auth:vendor','verifiedvendor']], function(){
+	
+	Route::resource('@{vendor}/business','BusinessController',['as'=>'biz']);
+	Route::resource('@{vendor}/business/vb/settings','BizSettingController',['as'=>'biz']);
+	Route::resource('@{vendor}/business/vb/categories','BusinessCategoryController',['as'=>'biz']);
+	Route::resource('@{vendor}/business/vb/tags','BusinessTagController',['as'=>'biz']);
+	Route::resource('@{vendor}/business/vb/gallery','BusinessGalleryController',['as'=>'biz']);
 
+	Route::resource('@{vendor}/products','ProductController',['as'=>'product']);
+	Route::resource('@{vendor}/products/vb/categories','ProductCategoryController',['as'=>'product']);
+	Route::resource('@{vendor}/products/vb/tags','ProductTagController',['as'=>'product']);
+	Route::resource('@{vendor}/products/vb/gallery','ProductGalleryController',['as'=>'product']);
+
+	Route::resource('@{vendor}/services','ServiceController',['as'=>'service']);
+	Route::resource('@{vendor}/services/vb/categories','ServiceCategoryController',['as'=>'service']);
+	Route::resource('@{vendor}/services/vb/tags','ServiceCategoryController',['as'=>'service']);
+	Route::resource('@{vendor}/services/vb/gallery','ServiceGalleryController',['as'=>'service']);
 });
 
 // Authenticated users only

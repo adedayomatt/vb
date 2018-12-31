@@ -60,7 +60,7 @@
                 @auth('user')
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::guard()->user()->name }} <span class="caret"></span>
+                            {{ auth('user')->user()->username() }} <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -80,9 +80,12 @@
                 @endauth
 
                 @auth('vendor')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('biz.business.create',['vendor' => auth('vendor')->user()->username])}}">Create your Business</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::guard('vendor')->user()->name }} <span class="caret"></span>
+                            {{ auth('vendor')->user()->username() }} <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

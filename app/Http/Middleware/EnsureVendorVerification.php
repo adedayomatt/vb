@@ -18,7 +18,7 @@ class EnsureVendorVerification
         if (! $request->user() || ! $request->user()->hasVerifiedEmail()) {
             return $request->expectsJson()
                     ? abort(403, 'Your email address is not verified.')
-                    : Redirect::route('user.verification.notice');
+                    : Redirect::route('vendor.verification.notice');
             }
     
         return $next($request);

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth\User;
 
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Auth\Events\Verified;
+use App\Events\UserVerified;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 
@@ -59,7 +59,7 @@ class VerificationController extends Controller
     {
         $user = User::findorfail($request->route('id'));
         if ( $user->markEmailAsVerified()) {
-            event(new Verified($user));
+            event(new UserVerified($user));
         }
     
         return redirect($this->redirectPath())->with('verified', true);

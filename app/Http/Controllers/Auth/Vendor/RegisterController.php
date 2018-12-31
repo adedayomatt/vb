@@ -76,7 +76,9 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return Vendor::create([
-            'name' => $data['name'],
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

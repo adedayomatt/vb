@@ -15,7 +15,7 @@ class Vendor extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'firstname', 'lastname', 'username', 'email',  'password',
     ];
 
     /**
@@ -47,4 +47,7 @@ class Vendor extends Authenticatable implements MustVerifyEmail
 		$this->notify(new \App\Notifications\sendVendorPasswordResetNotification($token));
 	}  
 
+    public function username(){
+        return '@'.$this->username;
+    }
 }
