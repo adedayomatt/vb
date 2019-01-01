@@ -11,4 +11,8 @@ class BusinessGallery extends Model
 	public function business(){
         return $this->belongsTo('App\Business');
     }
+
+    public function url(){
+        return asset('storage/images/business/gallery/'.$this->url);
+    }
 }

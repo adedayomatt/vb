@@ -166,9 +166,11 @@ return [
          * Package Service Providers...
          */
         
-        ///Laravel collective
+        //Laravel collective
         Collective\Html\HtmlServiceProvider::class,
-
+        //ckeditor
+        Unisharp\Ckeditor\ServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */

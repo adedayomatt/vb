@@ -28,7 +28,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware('nonvendor')->except('logout');
+        $this->middleware('guest')->except('logout');
     }
 
     public function showLoginForm()
@@ -55,7 +55,7 @@ class LoginController extends Controller
      */
     public function username()
     {
-        return 'email';
+        return 'username';
     }
 
     /**

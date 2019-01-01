@@ -2,10 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Business;
+use App\BusinessGallery;
+use App\Matto\FileUpload;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
+use App\Traits\BusinessTrait;
 
 class BusinessGalleryController extends Controller
 {
+
+    use BusinessTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +44,6 @@ class BusinessGalleryController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -45,7 +54,10 @@ class BusinessGalleryController extends Controller
      */
     public function show($id)
     {
-        //
+        if(!$this->authorized($id)){
+            return redirect()->intended($this->redirectTo())->with('info', 'You are not authorized!');
+           }
+           return view('ven.business.gallery')->with('business',$this->getBusiness($id));
     }
 
     /**
@@ -66,9 +78,72 @@ class BusinessGalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id,$type)
     {
-        //
+        if(!$this->authorized($id)){
+            return redirect()->intended($this->redirectTo())->with('info', 'You are not authorized!');
+           }
+   
+        $business = $this->getBusiness($id);
+        $rules = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048';
+    
+        switch($type){
+            case 'avatar':
+                    $this->validate($request,[
+                        'avatar' => $rules,
+                    ]);
+                    if($request->hasFile('avatar')){
+                    $upload = new FileUpload(
+                                $request,
+                                $name = 'avatar',
+                                $title = $business->slug,
+                                $path = 'public/images/business/avatar/'
+                            );
+                    $business->avatar = isset($upload->slugs[0]) ? $upload->slugs[0] : null;
+                    $business->save();
+                    return redirect()->back()->with('info',$upload->report);
+                }
+            break;
+    
+            case 'cover':
+                $this->validate($request,[
+                    'cover' => $rules,
+                ]);
+                if($request->hasFile('cover')){
+                    $upload = new FileUpload(
+                                $request,
+                                $name = 'cover',
+                                $title = $business->slug,
+                                $path = 'public/images/business/cover/'
+                            );
+                    $business->cover = isset($upload->slugs[0]) ? $upload->slugs[0] : null;
+                    $business->save();
+                    return redirect()->back()->with('info',$upload->report);
+                }
+
+            break;
+    
+            case 'gallery':
+                $this->validate($request,[
+                    'gallery[]' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5048'
+                ]);
+                $upload = new FileUpload($request,
+                $name='gallery',
+                $title= $business->slug,
+                $path = 'public/images/business/gallery'
+                );
+                if($upload->totalSuccess > 0 && count($upload->slugs) >0){
+                    foreach($upload->slugs as $slug){
+                        BusinessGallery::create([
+                            'business_id' => $business->id,
+                            'url' => $slug
+                        ]);
+                    }
+                }
+                return redirect()->back()->with('info',$upload->report);
+            break;
+            
+        }
     }
 
     /**
@@ -79,6 +154,9 @@ class BusinessGalleryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!$this->authorized($id)){
+            return redirect()->intended($this->redirectTo())->with('info', 'You are not authorized!');
+           }
+           //
     }
 }

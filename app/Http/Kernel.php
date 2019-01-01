@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'nonvendor' => \App\Http\Middleware\RedirectIfAuthenticatedVendor::class,
         'verifiedvendor' => \App\Http\Middleware\EnsureVendorVerification::class,
         'verifieduser' => \App\Http\Middleware\EnsureUserVerification::class,
+        'authorizedvendor' => \App\Http\Middleware\OnlyAuthorizedVendor::class,
     ];
 
     /**

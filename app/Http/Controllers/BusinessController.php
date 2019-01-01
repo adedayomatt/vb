@@ -3,22 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Business;
-use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use App\Matto\FileUpload;
+
+use App\Traits\BusinessTrait;
 
 class BusinessController extends Controller
 {
 
-    /**To get the resource either with id or slug */
-    public function getResource($identifier){
-        if(is_numeric($identifier)){
-            return Bussiness::findorfail($identifier);
-        }
-        else if(is_string($identifier)){
-            return Bussiness::where('slug',$identifier)->firstorfail();
-        }
-    }
+    use BusinessTrait;
 
     /**
      * Display a listing of the resource.
@@ -48,8 +43,23 @@ class BusinessController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+
+        $this->validate($request,$this->validationRules());
+        $business = new Business();
+        $business->vendor_id = Auth::guard('vendor')->id();
+        $business->business_category_id = $request->category;
+        $business->name = $request->business_name;
+        $business->description = $request->description;
+        $business->address = $request->business_address;
+        $business->email = $request->email;
+        $business->phone1 = $request->phone;
+        $business->phone2 = $request->alternative_phone_no;
+        $business->slug = $request->slug;
+        $business->save();
+
+        return redirect()->route('business.gallery',['b' => $business->slug])->with('new','true');
+        }
+
 
     /**
      * Display the specified resource.
@@ -59,7 +69,7 @@ class BusinessController extends Controller
      */
     public function show($id)
     {
-        //
+        dd($this->getBusiness($id));
     }
 
     /**
@@ -70,7 +80,10 @@ class BusinessController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!$this->authorized($id)){
+            return redirect()->intended($this->redirectTo())->with('info', 'You are not authorized!');
+        }
+        return view('ven.business.edit')->with('business',$this->getBusiness($id));
     }
 
     /**
@@ -82,8 +95,26 @@ class BusinessController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        if(!$this->authorized($id)){
+            return redirect()->intended($this->redirectTo())->with('info', 'You are not authorized!');
+           }
+
+        $this->validate($request,$this->validationRules());
+
+        $business = $this->getBusiness($id);
+        $business->business_category_id = $request->category;
+        $business->name = $request->business_name;
+        $business->description = $request->description;
+        $business->address = $request->business_address;
+        $business->email = $request->email;
+        $business->phone1 = $request->phone;
+        $business->phone2 = $request->alternative_phone_no;
+        $business->slug = $request->slug;
+        $business->save();
+
+        return redirect()->route('business',[$business->slug])->with('success','updated');
+
+       }
 
     /**
      * Remove the specified resource from storage.
@@ -93,6 +124,8 @@ class BusinessController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+        if(!$this->authorized($id)){
+            return redirect()->intended($this->redirectTo())->with('info', 'You are not authorized!');
+           }
+       }
 }

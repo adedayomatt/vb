@@ -27,6 +27,10 @@ class Vendor extends Authenticatable implements MustVerifyEmail
         'password', 'remember_token',
     ];
     
+    public function business(){
+        return $this->hasOne('App\Business');
+    }
+    
     /**
      * This is to send verification email, it overrides the default laravel verification notification
 	 * 
@@ -49,5 +53,8 @@ class Vendor extends Authenticatable implements MustVerifyEmail
 
     public function username(){
         return '@'.$this->username;
+    }
+    public function hasBusiness(){
+        return $this->business !== null ? true : false;
     }
 }

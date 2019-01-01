@@ -49,6 +49,9 @@ Route::group(['prefix' => 'vendor'],function(){
 	Route::get('email/verify/{id}','Auth\Vendor\VerificationController@verify')->name('vendor.verification.verify');
 	}
 );
+Route::get('@{business}','BusinessController@show')->name('business');
+// Route::get('vendor/@{vendor}','VendorController@show')->name('vendor');
+Route::get('product/{slug}','ProductController@show')->name('product');
 
 // Authenticated vendors only
 Route::group(['middleware' => 'auth:vendor'], function(){
@@ -58,21 +61,26 @@ Route::group(['middleware' => 'auth:vendor'], function(){
 // Verified vendors only
 Route::group(['middleware' => ['auth:vendor','verifiedvendor']], function(){
 	
-	Route::resource('@{vendor}/business','BusinessController',['as'=>'biz']);
-	Route::resource('@{vendor}/business/vb/settings','BizSettingController',['as'=>'biz']);
-	Route::resource('@{vendor}/business/vb/categories','BusinessCategoryController',['as'=>'biz']);
-	Route::resource('@{vendor}/business/vb/tags','BusinessTagController',['as'=>'biz']);
-	Route::resource('@{vendor}/business/vb/gallery','BusinessGalleryController',['as'=>'biz']);
+	Route::resource('business','BusinessController',['as'=>'biz']);
+	Route::get('@{business}/edit','BusinessController@edit')->name('business.edit');
+	Route::get('@{business}/gallery','BusinessGalleryController@show')->name('business.gallery');
+	Route::put('@{business}/photo/{type}','BusinessGalleryController@update')->name('update.business.gallery');
+	
+	Route::resource('@{business}/product','ProductController',['as'=>'biz']);
+	Route::resource('@{business}/settings','BizSettingController',['as'=>'biz']);
+	Route::resource('business/vb/categories','BusinessCategoryController',['as'=>'biz']);
+	Route::resource('business/vb/tags','BusinessTagController',['as'=>'biz']);
+	Route::resource('business/vb/gallery','BusinessGalleryController',['as'=>'biz']);
 
-	Route::resource('@{vendor}/products','ProductController',['as'=>'product']);
-	Route::resource('@{vendor}/products/vb/categories','ProductCategoryController',['as'=>'product']);
-	Route::resource('@{vendor}/products/vb/tags','ProductTagController',['as'=>'product']);
-	Route::resource('@{vendor}/products/vb/gallery','ProductGalleryController',['as'=>'product']);
+	Route::resource('products','ProductController',['as'=>'product']);
+	Route::resource('products/vb/categories','ProductCategoryController',['as'=>'product']);
+	Route::resource('products/vb/tags','ProductTagController',['as'=>'product']);
+	Route::resource('products/vb/gallery','ProductGalleryController',['as'=>'product']);
 
-	Route::resource('@{vendor}/services','ServiceController',['as'=>'service']);
-	Route::resource('@{vendor}/services/vb/categories','ServiceCategoryController',['as'=>'service']);
-	Route::resource('@{vendor}/services/vb/tags','ServiceCategoryController',['as'=>'service']);
-	Route::resource('@{vendor}/services/vb/gallery','ServiceGalleryController',['as'=>'service']);
+	Route::resource('services','ServiceController',['as'=>'service']);
+	Route::resource('services/vb/categories','ServiceCategoryController',['as'=>'service']);
+	Route::resource('services/vb/tags','ServiceCategoryController',['as'=>'service']);
+	Route::resource('services/vb/gallery','ServiceGalleryController',['as'=>'service']);
 });
 
 // Authenticated users only

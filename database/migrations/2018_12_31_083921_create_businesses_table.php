@@ -18,13 +18,13 @@ class CreateBusinessesTable extends Migration
             $table->integer('vendor_id')->unsigned();
             $table->integer('business_category_id')->unsigned();
             $table->string('name');
+            $table->longText('description')->nullable();
             $table->string('address');
             $table->string('email');
             $table->string('phone1');
             $table->string('phone2')->nullable();
-            $table->string('coverphoto')->nullable();
-            $table->string('avatar')->nulable();
-            $table->longText('description')->nullable();
+            $table->string('cover')->nullable();
+            $table->string('avatar')->nullable();
             $table->string('slug');
             $table->timestamps();
             $table->softDeletes();

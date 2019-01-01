@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
   <a class="navbar-brand" href="{{route('home')}}">VB</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -80,9 +80,18 @@
                 @endauth
 
                 @auth('vendor')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('biz.business.create',['vendor' => auth('vendor')->user()->username])}}">Create your Business</a>
-                    </li>
+                    @if(auth('vendor')->user()->hasBusiness())
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('business',[auth('vendor')->user()->business->slug])}}">My Business</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('biz.product.create')}}">New Product</a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('biz.business.create')}}">Create your Business</a>
+                        </li>
+                    @endif
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ auth('vendor')->user()->username() }} <span class="caret"></span>
