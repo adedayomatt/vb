@@ -26,10 +26,7 @@ class Vendor extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
-    public function business(){
-        return $this->hasOne('App\Business');
-    }
+
     
     /**
      * This is to send verification email, it overrides the default laravel verification notification
@@ -49,7 +46,16 @@ class Vendor extends Authenticatable implements MustVerifyEmail
      */
 	public function sendPasswordResetNotification($token){
 		$this->notify(new \App\Notifications\sendVendorPasswordResetNotification($token));
-	}  
+    }  
+    
+    public function business(){
+        return $this->hasOne('App\Business');
+    }
+
+
+    public function fullname(){
+        return $this->firstname.' '.$this->lastname;
+    }
 
     public function username(){
         return '@'.$this->username;

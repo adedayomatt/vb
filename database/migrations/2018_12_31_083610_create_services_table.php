@@ -20,6 +20,7 @@ class CreateServicesTable extends Migration
             $table->string('name');
             $table->longText('description')->nullable();
             $table->string('slug');
+            $table->string('dp');
             $table->timestamps();
             $table->softdeletes();
         });

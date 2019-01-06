@@ -13,7 +13,7 @@
 					<div class="container-fluid">
 						<div class="app-lhs-fixed">
 							<div class="row">
-								<div class="col-sm-3">
+								<div class="col-sm-3 col-no-padding-xs">
 									<div class="lhs-fixed">
 										<div class="lhs-content">
 											@yield('LHS')

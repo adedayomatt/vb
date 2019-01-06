@@ -1,13 +1,23 @@
-@extends('layouts.app')
+@extends('layouts.appLHSfixedRHSfixed')
+
+@section('LHS')
+    @include('product.widgets.list')
+    @include('product.category.widget')
+    @include('product.tag.widget')
+@endsection
 
 @section('main')
-        <div class="flex-center position-ref full-height">
-            <div class="jumbotron">
-                <h1 class="text-center">
-                    VB.io
-                </h1>
-            </div>
-        </div>
+    @include('business.widgets.list')
+    @include('business.category.widget')
+    @include('business.tag.widget')
 @endsection
+
+@section('RHS')
+    @include('service.widgets.list')
+    @include('service.category.widget')
+    @include('service.tag.widget')
+
+@endsection
+
 
 

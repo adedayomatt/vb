@@ -3,28 +3,25 @@
 namespace App\Traits;
 
 use App\Business;
+use App\Traits\GetResource;
 use Illuminate\Support\Facades\Auth;
 
 trait BusinessTrait
 {
+    use GetResource;
     // Get and return the business resource either by ots ID or slug
     protected function getBusiness($identifier){
-        if(is_numeric($identifier)){
-            return Business::findorfail($identifier);
-        }
-        else if(is_string($identifier)){
-            return Business::where('slug',$identifier)->firstorfail();
-        }
+       return $this->find(Business::class,$identifier);
     }
 
     // check if the authenticated vendor can access the resource
-    protected function authorized($id){
-        if(Auth::guard('vendor')->user()->business->id === $this->getBusiness($id)->id){
-            return true;
-        }
-        return false;
+    /**
+     * @param id Business id/slug to verify
+     */
+    protected function authorizedVendor($business)
+    {
+        return $this->getBusiness($business)->ownedBy(Auth::guard('vendor')->id());
     }
-
     //where to redirect to when acceess is denied
     protected function redirectTo(){
         return route('home');
@@ -41,4 +38,5 @@ trait BusinessTrait
             'slug' => ['required','']
         ];
     }
+
 }

@@ -19,7 +19,7 @@
 							</div>
 							
 							<div class="col-sm-3 col-no-padding-xs">
-								<div class="rhs">
+								<div class="rhs-content">
 									@yield('RHS')
 								</div>
 							</div>

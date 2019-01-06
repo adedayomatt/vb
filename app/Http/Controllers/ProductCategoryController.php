@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\ProductCategory;
+use App\Traits\GetResource;
 use Illuminate\Http\Request;
 
 class ProductCategoryController extends Controller
 {
+    use GetResource;
+    
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +17,7 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('product.category.index')->with('productcategories',ProductCategory::all());
     }
 
     /**
@@ -23,7 +27,7 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.category.create');
     }
 
     /**
@@ -34,7 +38,16 @@ class ProductCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'category_name' => ['required','unique:productcategories']
+        ]);
+        $category = new ProductCategory();
+        $category->name = $request->category_name;
+        $category->description = $request->description;
+        $category->slug = str_slug($request->category_name);
+        $category->save();
+
+        return redirect()->route('product.category.show',[$category->slug])->with('success','New product category created');
     }
 
     /**
@@ -45,7 +58,7 @@ class ProductCategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('product.category.show')->with('productcategory',$this->find(ProductCategory::class,$id));
     }
 
     /**
@@ -56,7 +69,7 @@ class ProductCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('product.category.edit')->with('productcategory',$this->find(ProductCategory::class,$id));
     }
 
     /**
@@ -68,7 +81,16 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'category_name' => ['required','unique:productcategories']
+        ]);
+        $category = $this->find(ProductCategory::class,$id);
+        $category->name = $request->category_name;
+        $category->description = $request->description;
+        $category->slug = str_slug($request->category_name);
+        $category->save();
+
+        return redirect()->route('biz.category.show',[$category->slug])->with('success',$category->name.' updated');
     }
 
     /**

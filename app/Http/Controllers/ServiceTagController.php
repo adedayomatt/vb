@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\ServiceTag;
+use App\Traits\GetResource;
 use Illuminate\Http\Request;
 
 class ServiceTagController extends Controller
 {
+    use GetResource;
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +16,7 @@ class ServiceTagController extends Controller
      */
     public function index()
     {
-        //
+        return view('service.tag.index')->with('servicetags',ServiceTag::all());
     }
 
     /**
@@ -23,7 +26,7 @@ class ServiceTagController extends Controller
      */
     public function create()
     {
-        //
+        return view('service.tag.create');
     }
 
     /**
@@ -34,7 +37,16 @@ class ServiceTagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'tag_name' => ['required','unique:servicetags']
+        ]);
+        $tag = new ServiceTag();
+        $tag->name = $request->tag_name;
+        $tag->description = $request->description;
+        $tag->slug = str_slug($request->tag_name);
+        $tag->save();
+
+        return redirect()->route('service.tag.show',[$tag->slug])->with('success','New service tag created');
     }
 
     /**
@@ -45,7 +57,7 @@ class ServiceTagController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('service.tag.show')->with('servicetag',$this->find(ServiceTag::class,$id));
     }
 
     /**
@@ -56,7 +68,7 @@ class ServiceTagController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('service.tag.edit')->with('servicetag',$this->find(ServiceTag::class,$id));
     }
 
     /**
@@ -68,7 +80,16 @@ class ServiceTagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'tag_name' => ['required','unique:servicetags']
+        ]);
+        $tag = $this->find(ServiceTag::class,$id);
+        $tag->name = $request->tag_name;
+        $tag->description = $request->description;
+        $tag->slug = str_slug($request->tag_name);
+        $tag->save();
+
+        return redirect()->route('service.tag.show',[$tag->slug])->with('success','Service tag '.$tag->name.' updated');
     }
 
     /**

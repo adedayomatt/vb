@@ -1,6 +1,6 @@
 @extends('layouts.appLHSfixed')
 @section('LHS')
-    @include('widgets.displays.user-register')
+    @include('user.banners.register')
 @endsection
 @section('main')
 <div class="container">
@@ -11,7 +11,7 @@
                     <h2>{{ __('Register') }}</h2>
                 </div>
                 <div class="card-body">
-                    @include('components.forms.auth.user.register')
+                    @include('user.forms.register')
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 @extends('layouts.appLHSfixed')
 @section('LHS')
-    @include('widgets.displays.vendor-login')
+    @include('ven.banners.login')
 @endsection
 @section('main')
 <div class="container">
@@ -11,7 +11,7 @@
                     <h2>{{ __('Login') }}</h2>
                 </div>
                 <div class="card-body">
-                    @include('components.forms.auth.vendor.login')
+                    @include('ven.forms.login')
                 </div>
             </div>
         </div>

@@ -11,68 +11,109 @@
 	padding-left: 2px !important;
 	padding-right: 2px !important;
 }
-
-/*for dasboard, menu icons only are fixed by the side in mobile but menu texts are hidden*/
-.dashboard-lhs-fixed .lhs-content,.content{
-	padding-top:60px;
+.app .content,
+.app-center .content,
+.app-lhs .lhs-content,
+.app-lhs .content,
+.app-lhs-fixed .lhs-content,
+.app-lhs-fixed .content,
+.app-rhs .content,
+.app-rhs .lhs-content,
+.app-rhs-fixed .content,
+.app-rhs-fixed .rhs-content,
+.app-lhs-rhs .lhs-content,
+.app-lhs-rhs .content,
+.app-lhs-rhs .rhs-content,
+.app-lhs-fixed-rhs-fixed .lhs-content,
+.app-lhs-fixed-rhs-fixed .content,
+.app-lhs-fixed-rhs-fixed .rhs-content,
+.app-dashboard .lhs-content,
+.app-dashboard .content
+{
+	padding-top: 60px;
 }
+
+
 .lhs-fixed,.rhs-fixed{
 	z-index: 1;
 }
+/*for dasboard, menu icons only are fixed by the side in mobile but menu texts are hidden*/
 
-.dashboard-lhs-fixed .lhs-fixed:hover{
+.app-dashboard .lhs-fixed:hover{
 	overflow-y: auto;
 }
-.dashboard-lhs-fixed .lhs-fixed{
+.app-dashboard .lhs-fixed{
 	width:16.67%;
 	right: 83.33%;
 	background-color: #000;
 }
 
-.dashboard-lhs-fixed .lhs-fixed .lhs-menu-icon{
+.app-dashboard .lhs-fixed .lhs-menu-icon{
 	font-size: 30px;
 }
-.dashboard-lhs-fixed .lhs-fixed .lhs-menu-text{
+.app-dashboard .lhs-fixed .lhs-menu-text{
 	display: none;
 }
 
-.dashboard-lhs-fixed .lhs-content.for-menu-list{
+.app-dashboard .lhs-content{
 	background-color: #636b6f;
 	height: 100%;
 }
-.dashboard-lhs-fixed .lhs-menu-list{
+.app-dashboard .lhs-menu-list{
 	padding: 0
 }
-.dashboard-lhs-fixed .lhs-menu-list li{
+.app-dashboard .lhs-menu-list li{
 	list-style-type: none;
 }
-.dashboard-lhs-fixed .lhs-menu-list a{
+.app-dashboard .lhs-menu-list a{
 	display: block;
 	color: #fff;
 	padding: 10px 2px;
 	text-align: center;
 }
-.dashboard-lhs-fixed .lhs-menu-list a:hover{
+.app-dashboard .lhs-menu-list a:hover{
 	text-decoration: none;
 	font-size: 105%;
 	background-color: #f7f7f7;
 	color: #636b6f;
 	}
 
-.dashboard-lhs-fixed .lhs-fixed{
+.app-dashboard .lhs-fixed{
 		position:fixed;
 		height:100vh;
 		left: 0;
 		overflow-y:hidden;
 }
 /********************/
+/* Smart phone screens or lesser */
+@media(max-width: 576px){
+	.app-lhs .content,
+	.app-lhs-fixed .content,
+	.app-rhs .rhs-content,
+	.app-rhs-fixed .rhs-content,
+	.app-lhs-rhs .content,
+	.app-lhs-rhs .rhs-content,
+	.app-lhs-fixed-rhs-fixed .content,
+	.app-lhs-fixed-rhs-fixed .rhs-content
+	{
+		padding-top: 10px;
+	}
+}
 
+/* Tab screen and above*/
 @media (min-width: 576px){
-	 .lhs-fixed,
+	.app-lhs-fixed-rhs-fixed .rhs-content
+	{
+		padding-top: 10px;
+	}
+
+	.lhs-fixed,
 	.lhs-fixed-head,
 	.content-fixed-head,
 	.app-rhs-fixed .rhs-fixed,
-	.app-rhs-fixed .rhs-fixed-head
+	.app-rhs-fixed .rhs-fixed-head,
+	.app-lhs-fixed-rhs-fixed .lhs-fixed,
+	.app-lhs-fixed-rhs-fixed .lhs-fixed-head
 	{
 		position:fixed;
 		z-index: 10;
@@ -105,41 +146,27 @@
 		left: 75%;
 	}
 
-	.app-lhs-fixed .content-fixed-head
-	{
-		width: 75%;
-		left: 25%;
-	}
-
 	.app-rhs-fixed .content-fixed-head
 	{
 		width: 75%;
 		right: 25%;
 	}
 
-	.app-lhs-fixed-rhs-fixed .lhs-fixed,
-	.app-lhs-fixed-rhs-fixed .lhs-fixed-head
-	{
-		width: 16.67%;
-		right: 83.33%
-	}
-
-	.app-lhs-fixed-rhs-fixed .content-fixed,
+	.app-lhs-fixed .content-fixed-head,
 	.app-lhs-fixed-rhs-fixed .content-fixed-head
 	{
-		width: 83.33%;
-		left: 16.67%;
+		width: 75%;
+		left: 25%;
 	}
-	.app-lhs-fixed-rhs-fixed .rhs-fixed
+
+
+	.app-lhs-fixed-rhs-fixed .rhs-fixed,
+	.app-lhs-fixed-rhs-fixed .rhs-fixed-head
 	{
-		width: 83.33%;
-		margin-left: 16.67%;
+		width:75%;
+		margin-left: 25%;
 	}
-	.lhs-content,
-	.app-rhs-fixed .rhs-content
-	{
-		padding-top: 60px;
-	}
+
 	.lhs-fixed .lhs-body,
 	.content .content-body,
 	.rhs-fixed .rhs-body
@@ -147,14 +174,21 @@
 		padding-top: 60px;
 	}
 
-
 	.no-padding-xs,.col-no-padding-xs{/*Return the padding in sm screen and above*/
 		padding-left: 10px !important;
 		padding-right: 10px !important;
 	}
 
 }
+
+/* Desktop screen and above*/
+
 @media (min-width: 768px){
+	.app-lhs-fixed-rhs-fixed .rhs-content
+	{
+		padding-top: 60px; /* return thetop padding */
+	}
+
 	.app-lhs-fixed-rhs-fixed .rhs-fixed,
 	.app-lhs-fixed-rhs-fixed .rhs-fixed-head,
 	.app-lhs-fixed-rhs-fixed .content-fixed-head
@@ -182,13 +216,10 @@
 		left: 75%;
 		margin-left: 0;
 	}
+
 	.app-lhs-fixed-rhs-fixed .content-fixed-head{
 		width: 50%;
 		left: 25%;
 		right: 25%;
-	}
-	.app-lhs-fixed-rhs-fixed .rhs-content
-	{
-		padding-top: 60px;
 	}
 }

@@ -12,7 +12,10 @@ class BusinessGallery extends Model
         return $this->belongsTo('App\Business');
     }
 
-    public function url(){
-        return asset('storage/images/business/gallery/'.$this->url);
-    }
+	public function gallery(){
+		$image = array();
+		$image['src'] = $this->url === null ? asset('storage/images/business/gallery/default.png') : asset('storage/images/business/gallery/'.$this->url);
+		$image['alt'] = $this->business->name.' on '.config('app.name');
+		return $image;
+	}
 }

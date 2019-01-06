@@ -22,7 +22,7 @@ class BusinessController extends Controller
      */
     public function index()
     {
-        return view('ven.business.index');
+        return view('business.index')->with('businesses',Business::all());
     }
 
     /**
@@ -32,7 +32,7 @@ class BusinessController extends Controller
      */
     public function create()
     {
-        return view('ven.business.create');
+        return view('business.create');
     }
 
     /**
@@ -43,8 +43,8 @@ class BusinessController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request,$this->validationRules());
+        
         $business = new Business();
         $business->vendor_id = Auth::guard('vendor')->id();
         $business->business_category_id = $request->category;
@@ -57,51 +57,52 @@ class BusinessController extends Controller
         $business->slug = $request->slug;
         $business->save();
 
-        return redirect()->route('business.gallery',['b' => $business->slug])->with('new','true');
+        return redirect()->route('edit.business.gallery',[$business->slug])->with('new','true');
         }
 
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  mixed  $business - id/slug
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($business)
     {
-        dd($this->getBusiness($id));
+        dd($this->getBusiness($business));
+        return view('business.show')->with('business',);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  mixed  $business - id/slug
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($business)
     {
-        if(!$this->authorized($id)){
+        if(!$this->authorizedVendor($business)){
             return redirect()->intended($this->redirectTo())->with('info', 'You are not authorized!');
         }
-        return view('ven.business.edit')->with('business',$this->getBusiness($id));
+        return view('business.edit')->with('business',$this->getBusiness($business));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  mixed  $business - id/slug
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $business)
     {
-        if(!$this->authorized($id)){
+        if(!$this->authorizedVendor($business)){
             return redirect()->intended($this->redirectTo())->with('info', 'You are not authorized!');
            }
 
         $this->validate($request,$this->validationRules());
 
-        $business = $this->getBusiness($id);
+        $business = $this->getBusiness($business);
         $business->business_category_id = $request->category;
         $business->name = $request->business_name;
         $business->description = $request->description;
@@ -119,13 +120,15 @@ class BusinessController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  mixed  $business - id/slug
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($business)
     {
-        if(!$this->authorized($id)){
+        if(!$this->authorizedVendor($business)){
             return redirect()->intended($this->redirectTo())->with('info', 'You are not authorized!');
            }
+
+
        }
 }

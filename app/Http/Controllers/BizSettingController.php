@@ -7,15 +7,6 @@ use Illuminate\Http\Request;
 
 class BizSettingController extends Controller
 {
-    /**To get the resource either with id or slug */
-    public function getResource($identifier){
-        if(is_numeric($identifier)){
-            return BizSetting::findorfail($identifier);
-        }
-        else if(is_string($identifier)){
-            return BizSetting::where('slug',$identifier)->firstorfail();
-        }
-    }
     /**
      * Display a listing of the resource.
      *

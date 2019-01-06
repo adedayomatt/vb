@@ -11,18 +11,21 @@
 		   <main>
 			   <div id="app-accordion">
 					<div class="container-fluid">
-						<div class="row">
-							<div class="col-md-2 col-sm-3 col-no-padding-xs">
-								<div class="lhs">
-									@yield('LHS')
+						<div class="app-lhs">
+							<div class="row">
+								<div class="col-md-2 col-sm-3 col-no-padding-xs">
+									<div class="lhs-content">
+										@yield('LHS')
+									</div>
 								</div>
-							</div>
-							<div class="col-md-10 col-sm-9 col-no-padding-xs">
-								<div class="content">
-								@yield('main')
+								<div class="col-md-10 col-sm-9 col-no-padding-xs">
+									<div class="content">
+									@yield('main')
+									</div>
 								</div>
 							</div>
 						</div>
+						
 					</div>
 			   </div>
 				

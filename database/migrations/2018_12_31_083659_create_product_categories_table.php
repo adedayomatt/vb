@@ -15,9 +15,11 @@ class CreateProductCategoriesTable extends Migration
     {
         Schema::create('product_categories', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('vendor_id')->nullable();
             $table->string('name');
             $table->longText('description')->nullable();
             $table->string('slug');
+            $table->integer('approved')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

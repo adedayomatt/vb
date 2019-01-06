@@ -54,39 +54,37 @@ class BusinessGalleryController extends Controller
      */
     public function show($id)
     {
-        if(!$this->authorized($id)){
-            return redirect()->intended($this->redirectTo())->with('info', 'You are not authorized!');
-           }
-           return view('ven.business.gallery')->with('business',$this->getBusiness($id));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  mixed  $business - id/slug
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($business)
     {
-        //
+        if(!$this->authorizedVendor($business)){
+            return redirect()->intended($this->redirectTo())->with('info', 'You are not authorized!');
+           }
+           return view('business.gallery')->with('business',$this->getBusiness($business));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  mixed  $business - id/slug
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id,$type)
+    public function update(Request $request, $business,$type)
     {
-        if(!$this->authorized($id)){
+        if(!$this->authorizedVendor($business)){
             return redirect()->intended($this->redirectTo())->with('info', 'You are not authorized!');
            }
    
-        $business = $this->getBusiness($id);
+        $business = $this->getBusiness($business);
         $rules = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048';
-    
         switch($type){
             case 'avatar':
                     $this->validate($request,[
@@ -149,12 +147,12 @@ class BusinessGalleryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  mixed  $business - id/slug
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($business)
     {
-        if(!$this->authorized($id)){
+        if(!$this->authorizedVendor($business)){
             return redirect()->intended($this->redirectTo())->with('info', 'You are not authorized!');
            }
            //

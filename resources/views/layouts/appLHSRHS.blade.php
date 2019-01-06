@@ -9,22 +9,24 @@
 		<div id="app">
 		   @include('layouts.components.nav')
 		   <main>
-			   <div class="app-accordion">
+			   <div id="app-accordion">
 					<div class="container-fluid">
-						<div class="row">
-							<div class="col-sm-3 col-no-padding-xs">
-								<div class="lhs">
-									@yield('LHS')
+						<div class="app-lhs-rhs">
+							<div class="row">
+								<div class="col-md-3 col-no-padding-xs">
+									<div class="lhs-content">
+										@yield('LHS')
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-6 col-no-padding-xs">
-								<div class="content">
-									@yield('main')
+								<div class="col-md-6 col-no-padding-xs">
+									<div class="content">
+										@yield('main')
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-3 col-no-padding-xs">
-								<div class="rhs">
-									@yield('RHS')
+								<div class="col-md-3  col-no-padding-xs">
+									<div class="rhs-content">
+										@yield('RHS')
+									</div>
 								</div>
 							</div>
 						</div>

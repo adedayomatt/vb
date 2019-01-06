@@ -2,22 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\BussinessCategory;
+use App\BusinessCategory;
+use App\Traits\GetResource;
 use Illuminate\Http\Request;
 
 class BusinessCategoryController extends Controller
 {
-
-    /**To get the resource either with id or slug */
-    public function getResource($identifier){
-        if(is_numeric($identifier)){
-            return BussinessCategory::findorfail($identifier);
-        }
-        else if(is_string($identifier)){
-            return BussinessCategory::where('slug',$identifier)->firstorfail();
-        }
-    }
-    
+    use GetResource;
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +16,7 @@ class BusinessCategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('business.category.index')->with('businesscategories',BusinessCategory::all());
     }
 
     /**
@@ -35,7 +26,7 @@ class BusinessCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('business.category.create');
     }
 
     /**
@@ -46,7 +37,16 @@ class BusinessCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'category_name' => ['required','unique:businesscategories']
+        ]);
+        $category = new BusinessCategory();
+        $category->name = $request->category_name;
+        $category->description = $request->description;
+        $category->slug = str_slug($request->category_name);
+        $category->save();
+
+        return redirect()->route('biz.category.show',[$category->slug])->with('success','New business category created');
     }
 
     /**
@@ -57,7 +57,7 @@ class BusinessCategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('business.category.show')->with('businesscategory',$this->find(BusinessCategory::class,$id));
     }
 
     /**
@@ -68,7 +68,7 @@ class BusinessCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('business.category.edit')->with('businesscategory',$this->find(BusinessCategory::class,$id));
     }
 
     /**
@@ -80,7 +80,16 @@ class BusinessCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'category_name' => ['required']
+        ]);
+        $category = $this->find(BusinessCategory::class,$id);
+        $category->name = $request->category_name;
+        $category->description = $request->description;
+        $category->slug = str_slug($request->category_name);
+        $category->save();
+
+        return redirect()->route('biz.category.show',[$category->slug])->with('success',$category->name.' updated');
     }
 
     /**

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\ProductTag;
+use App\Traits\GetResource;
 use Illuminate\Http\Request;
 
 class ProductTagController extends Controller
 {
+    use GetResource;
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +17,7 @@ class ProductTagController extends Controller
      */
     public function index()
     {
-        //
+        return view('product.tag.index')->with('producttags',ProductTag::all());
     }
 
     /**
@@ -23,7 +27,7 @@ class ProductTagController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.tag.create');
     }
 
     /**
@@ -34,7 +38,16 @@ class ProductTagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'tag_name' => ['required']
+        ]);
+        $tag = new ProductTag();
+        $tag->name = $request->tag_name;
+        $tag->description = $request->description;
+        $tag->slug = str_slug($request->tag_name);
+        $tag->save();
+
+        return redirect()->route('product.tag.show',[$tag->slug])->with('success','New product tag created');
     }
 
     /**
@@ -45,7 +58,7 @@ class ProductTagController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('product.tag.show')->with('producttag',$this->find(ProductTag::class,$id));
     }
 
     /**
@@ -56,7 +69,7 @@ class ProductTagController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('product.tag.edit')->with('producttag',$this->find(ProductTag::class,$id));
     }
 
     /**
@@ -68,7 +81,16 @@ class ProductTagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'tag_name' => ['required','unique:producttags']
+        ]);
+        $tag = $this->find(ProductTag::class,$id);
+        $tag->name = $request->tag_name;
+        $tag->description = $request->description;
+        $tag->slug = str_slug($request->tag_name);
+        $tag->save();
+
+        return redirect()->route('product.tag.show',[$tag->slug])->with('success','Product tag '.$tag->name.' updated');
     }
 
     /**

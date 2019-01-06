@@ -19,6 +19,7 @@ class VendorSeeder extends Seeder
             'username' => 'vendordummy',
             'email' => 'vendordummy@example.com',
             'password' => Hash::make('vendor'),
+            'email_verified_at' => now()
         ]);
     }
 }

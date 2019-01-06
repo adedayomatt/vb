@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\ServiceCategory;
+use App\Traits\GetResource;
 use Illuminate\Http\Request;
 
 class ServiceCategoryController extends Controller
 {
+    use GetResource;
+    
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +17,7 @@ class ServiceCategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('service.category.index')->with('servicecategories',ServiceCategory::all());
     }
 
     /**
@@ -23,7 +27,7 @@ class ServiceCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('service.category.create');
     }
 
     /**
@@ -34,7 +38,16 @@ class ServiceCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'category_name' => ['required','unique:servicecategories']
+        ]);
+        $category = new ServiceCategory();
+        $category->name = $request->category_name;
+        $category->description = $request->description;
+        $category->slug = str_slug($request->category_name);
+        $category->save();
+
+        return redirect()->route('service.category.show',[$category->slug])->with('success','New service category created');
     }
 
     /**
@@ -45,7 +58,7 @@ class ServiceCategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('service.category.show')->with('servicecategory',$this->find(ServiceCategory::class,$id));
     }
 
     /**
@@ -56,7 +69,7 @@ class ServiceCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('service.category.edit')->with('servicecategory',$this->find(ServiceCategory::class,$id));
     }
 
     /**
@@ -68,7 +81,16 @@ class ServiceCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'category_name' => ['required','unique:servicecategories']
+        ]);
+        $category = $this->find(ServiceCategory::class,$id);
+        $category->name = $request->category_name;
+        $category->description = $request->description;
+        $category->slug = str_slug($request->category_name);
+        $category->save();
+
+        return redirect()->route('biz.category.show',[$category->slug])->with('success',$category->name.' updated');
     }
 
     /**
@@ -80,5 +102,4 @@ class ServiceCategoryController extends Controller
     public function destroy($id)
     {
         //
-    }
-}
+    }}

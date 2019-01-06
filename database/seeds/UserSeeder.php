@@ -20,6 +20,8 @@ class UserSeeder extends Seeder
             'username' => 'userdummy',
             'email' => 'userdummy@example.com',
             'password' => Hash::make('user'),
+            'email_verified_at' => now()
+
         ]);
     }
 }
