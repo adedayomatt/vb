@@ -121,6 +121,34 @@ a[role='tab']:hover{
     border: 0;
     border-radius: 0;
 }
+.list-group.ball-bullet,
+.list-group.image-bullet
+{
+    border-left: 1px solid rgba(0,0,0,.125);
+    margin-left: 20px;
+}
+.list-group.ball-bullet .bullet{
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0,0,0,.125);
+    border-radius: 50%;
+}
+
+.list-group.ball-bullet .d-flex{
+    margin-left: -31px;
+}
+.list-group.image-bullet .d-flex{
+    margin-left: -40px;
+}
+
+.list-group.ball-bullet .list-group-item .bullet,
+.list-group.image-bullet .list-group-item img{
+    margin-right: 10px;
+    margin-top: 5px;
+    box-shadow: 0px 10px 40px rgba(0,0,0,.3);
+
+}
+
 
 
 /* Avatars */
@@ -149,4 +177,26 @@ a[role='tab']:hover{
 .avatar-xs{
     width: 30px;
     height: 30px;
+}
+
+/**************************************************************************************/
+
+/* xs screens or lesser */
+@media(max-width: 576px){
+
+}
+/* sm screen and above*/
+@media (min-width: 576px){
+
+}
+/* md screen and above */
+@media (min-width: 768px){
+    .card.widget .card-body{
+        max-height: 80vh;
+        overflow: hidden;
+    }
+    .card.widget .card-body:hover{
+        overflow-y: auto;
+    }
+
 }

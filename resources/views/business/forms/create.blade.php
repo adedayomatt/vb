@@ -33,6 +33,7 @@
             </div>
         </div>
 
+
         <div class="form-group">
             {{form::label('description', 'Description')}}
             {{form::textarea('description',old('description'),['id'=>'ckeditor','class'=>'form-control', 'placeholder'=>'Let people know about your business'])}}

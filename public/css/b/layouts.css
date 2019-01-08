@@ -28,7 +28,12 @@
 .app-lhs-fixed-rhs-fixed .content,
 .app-lhs-fixed-rhs-fixed .rhs-content,
 .app-dashboard .lhs-content,
-.app-dashboard .content
+.app-dashboard .content,
+.app-50-50-lhs-fixed .lhs-content,
+.app-50-50-lhs-fixed .rhs-content,
+.app-50-50-rhs-fixed .lhs-content,
+.app-50-50-rhs-fixed .rhs-content
+
 {
 	padding-top: 60px;
 }
@@ -84,8 +89,10 @@
 		left: 0;
 		overflow-y:hidden;
 }
-/********************/
-/* Smart phone screens or lesser */
+
+/**************************************************************************************/
+
+/* xs screens or lesser */
 @media(max-width: 576px){
 	.app-lhs .content,
 	.app-lhs-fixed .content,
@@ -94,15 +101,19 @@
 	.app-lhs-rhs .content,
 	.app-lhs-rhs .rhs-content,
 	.app-lhs-fixed-rhs-fixed .content,
-	.app-lhs-fixed-rhs-fixed .rhs-content
+	.app-lhs-fixed-rhs-fixed .rhs-content,
+	.app-50-50-lhs-fixed .rhs-content,
+	.app-50-50-rhs-fixed .rhs-content
 	{
 		padding-top: 10px;
 	}
 }
 
-/* Tab screen and above*/
+/* sm screen and above*/
 @media (min-width: 576px){
-	.app-lhs-fixed-rhs-fixed .rhs-content
+	.app-lhs-fixed-rhs-fixed .rhs-content,
+	.app-50-50-lhs-fixed .rhs-content,
+	.app-50-50-rhs-fixed .rhs-content
 	{
 		padding-top: 10px;
 	}
@@ -167,6 +178,7 @@
 		margin-left: 25%;
 	}
 
+
 	.lhs-fixed .lhs-body,
 	.content .content-body,
 	.rhs-fixed .rhs-body
@@ -181,26 +193,36 @@
 
 }
 
-/* Desktop screen and above*/
+/* md screen and above*/
 
 @media (min-width: 768px){
-	.app-lhs-fixed-rhs-fixed .rhs-content
+	.app-lhs-fixed-rhs-fixed .rhs-content,
+	.app-50-50-lhs-fixed .rhs-content,
+	.app-50-50-rhs-fixed .rhs-content
 	{
 		padding-top: 60px; /* return thetop padding */
 	}
 
 	.app-lhs-fixed-rhs-fixed .rhs-fixed,
 	.app-lhs-fixed-rhs-fixed .rhs-fixed-head,
-	.app-lhs-fixed-rhs-fixed .content-fixed-head
+	.app-lhs-fixed-rhs-fixed .content-fixed-head,
+	.app-50-50-lhs-fixed .lhs-fixed,
+	.app-50-50-rhs-fixed .rhs-fixed
 	{
 		position:fixed;
 		z-index: 10;
 	}
-	.app-lhs-fixed-rhs-fixed .rhs-fixed{
+	.app-lhs-fixed-rhs-fixed .rhs-fixed,
+	.app-50-50-lhs-fixed .lhs-fixed,
+	.app-50-50-rhs-fixed .rhs-fixed
+	{
 		max-height: 100vh;
 		overflow:hidden;
 	}
-	.app-lhs-fixed-rhs-fixed .rhs-fixed:hover{
+	.app-lhs-fixed-rhs-fixed .rhs-fixed:hover,
+	.app-50-50-lhs-fixed .lhs-fixed:hover,
+	.app-50-50-rhs-fixed .rhs-fixed:hover
+	{
 		overflow: auto
 	}
 	.app-lhs-fixed-rhs-fixed .lhs-fixed,
@@ -222,4 +244,15 @@
 		left: 25%;
 		right: 25%;
 	}
+
+	.app-50-50-lhs-fixed .lhs-fixed{
+		width: 50%;
+		right: 50%;
+	}
+
+	.app-50-50-rhs-fixed .rhs-fixed{
+		width: 50%;
+		left: 50%;
+	}
+
 }
