@@ -23,21 +23,21 @@
     <div class="row">
         <div class="col-12">
                 @if(session('new'))
-                    <h2>Let's create an amazing gallery for <strong>{{$product->name}}</strong>!</h2>
+                    <h4>Let's create an amazing gallery for <strong>{{$product->name}}</strong>!</h4>
                 @else
                     <h4>Update <strong>{{$product->name}} gallery</strong>!</h4>
                 @endif
                 <div class="text-center">
                     @if($product->photos->count() > 0)
-                        @foreach($product->photos as $gallery)
-                            <img src="{{$gallery->url()}}" alt="{{$product->name}} - {{$product->business->name}}" class="gallery" >
+                        @foreach($product->photos as $photo)
+                            <img src="{{$photo->gallery()['src']}}" alt="{{$photo->gallery()['alt']}}" class="gallery" >
                         @endforeach
                     @else
                         <p class="text-danger"><i class="fa fa-triangle-exclamation"></i>  No photo added yet</p>
                     @endif
                 </div>
-                <div class="row">
-                    <div class="col-md-6 offset-md-3">
+                <div class="row justify-contents-center">
+                    <div class="col-md-10">
                         @include('product.forms.gallery')
                     </div>
                 </div>

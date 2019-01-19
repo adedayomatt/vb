@@ -3,12 +3,12 @@
 namespace App\Traits;
 
 use App\Business;
-use App\Traits\GetResource;
+use App\Traits\Resource;
 use Illuminate\Support\Facades\Auth;
 
 trait BusinessTrait
 {
-    use GetResource;
+    use Resource;
     // Get and return the business resource either by ots ID or slug
     protected function getBusiness($identifier){
        return $this->find(Business::class,$identifier);

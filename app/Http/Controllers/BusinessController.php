@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Matto\FileUpload;
-
 use App\Traits\BusinessTrait;
 
 class BusinessController extends Controller
@@ -47,15 +46,17 @@ class BusinessController extends Controller
         
         $business = new Business();
         $business->vendor_id = Auth::guard('vendor')->id();
-        $business->business_category_id = $request->category;
+        $business->category_id = $request->category;
         $business->name = $request->business_name;
-        $business->description = $request->description;
+        $business->about = $request->about;
         $business->address = $request->business_address;
         $business->email = $request->email;
         $business->phone1 = $request->phone;
         $business->phone2 = $request->alternative_phone_no;
         $business->slug = $request->slug;
         $business->save();
+
+        $business->tags()->attach($request->tags);
 
         return redirect()->route('edit.business.gallery',[$business->slug])->with('new','true');
         }
@@ -69,8 +70,8 @@ class BusinessController extends Controller
      */
     public function show($business)
     {
-        dd($this->getBusiness($business));
-        return view('business.show')->with('business',);
+        $business = $this->getBusiness($business);
+        return view('themes.m4u.index')->with('business',$business);
     }
 
     /**
@@ -105,13 +106,15 @@ class BusinessController extends Controller
         $business = $this->getBusiness($business);
         $business->business_category_id = $request->category;
         $business->name = $request->business_name;
-        $business->description = $request->description;
+        $business->about = $request->about;
         $business->address = $request->business_address;
         $business->email = $request->email;
         $business->phone1 = $request->phone;
         $business->phone2 = $request->alternative_phone_no;
         $business->slug = $request->slug;
         $business->save();
+
+        $business->tags()->sync($request->tags);
 
         return redirect()->route('business',[$business->slug])->with('success','updated');
 

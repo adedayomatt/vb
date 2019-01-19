@@ -53,7 +53,7 @@ class ServiceController extends Controller
 
         $service = new Service();
         $service->business_id = Auth::guard('vendor')->user()->business->id;
-        $service->service_category_id = $request->category;
+        $service->category_id = $request->category;
         $service->name = $request->service_name;
         $service->description = $request->description;
         $service->slug = str_slug($request->service_name);

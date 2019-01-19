@@ -8,40 +8,19 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto ml-auto">
     <li class="nav-item  dropdown">
-            <a href="{{route('businesses')}}" class="nav-link dropdown-toggle" id="nav-business-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a href="{{route('businesses')}}" class="nav-link">
                 Businesses
             </a>
-            <div class="dropdown-menu" aria-labelledby="nav-business-dropdown">
-            <a class="dropdown-item" href="{{route('businesses')}}">See businesses</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{route('business.categories')}}">Business Categories</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item"  href="{{route('business.tags')}}">Business Tags</a>
-            </div>
       </li>
-      <li class="nav-item  dropdown">
-            <a href="{{route('products')}}" class="nav-link dropdown-toggle" id="nav-product-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <li class="nav-item ">
+            <a href="{{route('products')}}" class="nav-link" >
                 Products
             </a>
-            <div class="dropdown-menu" aria-labelledby="nav-product-dropdown">
-            <a class="dropdown-item" href="{{route('products')}}">See products</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{route('product.categories')}}">Product Categories</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item"  href="{{route('product.tags')}}">Product Tags</a>
-            </div>
       </li>
-      <li class="nav-item  dropdown">
-            <a href="{{route('services')}}" class="nav-link dropdown-toggle" id="nav-service-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <li class="nav-item ">
+            <a href="{{route('services')}}" class="nav-link">
                 Services
             </a>
-            <div class="dropdown-menu" aria-labelledby="nav-service-dropdown">
-            <a class="dropdown-item" href="{{route('services')}}">See services</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{route('service.categories')}}">Service Categories</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item"  href="{{route('service.tags')}}">Service Tags</a>
-            </div>
       </li>
 
       <!-- <li class="nav-item dropdown">
@@ -147,8 +126,7 @@
             @endif            
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            @include('tag.components.search')
         </form>
 
   </div>

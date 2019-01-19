@@ -13,33 +13,19 @@
             @endif
         </div>  
 
-        <div class="form-group row">
-            <div class="col-sm-4">
-                {{form::label('category', 'Category')}}
-            </div>
+        <div class="form-group row justify-content-center">
             <div class="col-sm-8">
-                <?php
-                    $categories = array();
-                    foreach($_businessCategories::all() as $c){
-                        $categories["$c->id"] = $c->name; 
-                    }
-                ?>
-                {{form::select('category',$categories,$business->category->id,
-                ['class'=>'form-control','placeholder' => 'update category','required'])}}
-                @if ($errors->has('category'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('category') }}</strong>
-                    </span>
-                @endif
-            </div>
+                <?php $category = $business->category ?>
+                    @include('category.attach')
+                </div>
         </div>
 
         <div class="form-group">
-            {{form::label('description', 'Description')}}
-            {{form::textarea('description',$business->description,['id'=>'ckeditor','class'=>'form-control', 'placeholder'=>'Let people know about your business'])}}
-            @if ($errors->has('description'))
+            {{form::label('about', 'About')}}
+            {{form::textarea('about',$business->about,['class'=>'ckeditor form-control', 'placeholder'=>'Let people know about your business'])}}
+            @if ($errors->has('about'))
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('description') }}</strong>
+                    <strong>{{ $errors->first('about') }}</strong>
                 </span>
             @endif
         </div>

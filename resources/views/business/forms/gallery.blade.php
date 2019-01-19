@@ -1,4 +1,4 @@
-{!!Form::open(['route' => ['update.business.gallery',$business->slug,'gallery'], 'method' => 'POST','class'=>'has-image-upload','files' => true])!!}
+{!!Form::open(['route' => ['update.business.gallery',$business->slug,'gallery'], 'method' => 'POST','class'=>'has-image-upload','required','files' => true])!!}
     @method('PUT')
     <fieldset>
         <div class="card">

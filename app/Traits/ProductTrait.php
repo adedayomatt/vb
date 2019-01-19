@@ -3,13 +3,13 @@
 namespace App\Traits;
 
 use App\Product;
-use App\Traits\GetResource;
+use App\Traits\Resource;
 use App\Traits\BusinessTrait;
 use Illuminate\Support\Facades\Auth;
 
 trait ProductTrait
 {
-    use GetResource,BusinessTrait;
+    use Resource,BusinessTrait;
     
     // Get and return the product resource either by ots ID or slug
     protected function getProduct($identifier){

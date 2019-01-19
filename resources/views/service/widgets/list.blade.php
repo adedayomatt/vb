@@ -5,9 +5,7 @@
 <div class="card widget">
        <div class="card-header">
             <h5>{{$title}}</h5>
-            <form action="">
-                <input class="form-control" type="text" placeholder="search for service...">
-            </form>
+            <input class="service-search form-control" type="text" placeholder="search for service...">
         </div>
        <div class="card-body p-0">
             @if($collection->count() >0 )

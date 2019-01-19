@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Business extends Model
 {
-	protected $fillable = ['vendor_id','business_category_id','name','description','address','email','phone1','phone2','slug','cover','avatar'];
+	protected $fillable = ['vendor_id','category_id','name','about','address','email','phone1','phone2','slug','cover','avatar'];
 
 	public function vendor(){
 		return $this->belongsTo('App\Vendor');
@@ -17,14 +17,12 @@ class Business extends Model
     public function services(){
 		return $this->hasMany('App\Service');
 	}
-	public function BusinessCategory(){
-		return $this->belongsTo('App\BusinessCategory');
+	public function category(){
+		return $this->belongsTo('App\Category');
 		}
-		public function category(){
-			return $this->BusinessCategory();
-		}
+
     public function tags(){
-			return $this->belongsToMany('App\Businesstag');
+			return $this->belongsToMany('App\Tag');
 		}
 		
     public function photos(){
@@ -64,10 +62,10 @@ class Business extends Model
 		return '@'.$this->slug;
 	}
 	
-	public function description($mode = 'snippet'){
+	public function about($mode = 'snippet'){
 		if($mode === 'snippet'){
-			return $this->description == null ? '<small class="text-danger" ><i class="fa fa-exclamation-triangle"></i> No description </small>': str_limit(strip_tags($this->description),50);
+			return $this->about == null ? '<small class="text-danger" ><i class="fa fa-exclamation-triangle"></i> No description </small>': str_limit(strip_tags($this->about),200);
 		}
-		return $this->description == null ? '<small class="text-danger" ><i class="fa fa-exclamation-triangle"></i> No description </small>': $this->description;
+		return $this->about == null ? '<small class="text-danger" ><i class="fa fa-exclamation-triangle"></i> No description </small>': $this->about;
 	}
 }

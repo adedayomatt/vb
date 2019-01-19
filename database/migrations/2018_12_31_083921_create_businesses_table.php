@@ -16,9 +16,9 @@ class CreateBusinessesTable extends Migration
         Schema::create('businesses', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('vendor_id')->unsigned();
-            $table->integer('business_category_id')->unsigned();
+            $table->integer('category_id')->unsigned();
             $table->string('name');
-            $table->longText('description')->nullable();
+            $table->longText('about')->nullable();
             $table->string('address');
             $table->string('email');
             $table->string('phone1');

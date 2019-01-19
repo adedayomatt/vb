@@ -20,17 +20,11 @@ class AppServiceProvider extends ServiceProvider
 
         //Share the models with the views for direct access
         View::share([
+            '_tags' => \App\Tag::class,
+            '_categories' => \App\Category::class,
             '_businesses' => \App\Business::class,
-            '_businessTags' => \App\Businesstag::class,
-            '_businessCategories' => \App\BusinessCategory::class,
-
             '_products' => \App\Product::class,
-            '_productTags' => \App\Producttag::class,
-            '_productCategories' => \App\ProductCategory::class,
-
             '_services' => \App\Service::class,
-            '_serviceTags' => \App\Servicetag::class,
-            '_serviceCategories' => \App\ServiceCategory::class,
 
         ]);
     }

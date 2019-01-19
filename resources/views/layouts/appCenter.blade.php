@@ -13,7 +13,7 @@
                     <div class="container-fluid">
                             <div class="app-center">
                                 <div class="row">
-                                    <div class="col-md-6 offset-md-3 col-sm-8 offset-sm-2">
+                                    <div class="col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-no-padding-xs">
                                         <div class="content">
                                             @yield('main')
                                         </div>

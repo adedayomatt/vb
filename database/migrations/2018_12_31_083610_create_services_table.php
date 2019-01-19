@@ -16,7 +16,7 @@ class CreateServicesTable extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('business_id')->unsigned();
-            $table->integer('service_category_id')->unsigned();
+            $table->integer('category_id')->unsigned();
             $table->string('name');
             $table->longText('description')->nullable();
             $table->string('slug');

@@ -3,7 +3,7 @@
         <img src="{{$service->dp()['src']}}" alt="{{$service->dp()['alt']}}" class="dp dp-sm">
         <div>
             <a href="{{route('biz.service.show',[$service->business->slug,$product->slug])}}">{{$service->name}}</a>
-             <br><small><a href="#">{{$service->category->name}}</a></small>   
+             <br><small><a href="{{route('category.show',[$service->category->slug])}}">{{$service->category->name}}</a></small>   
         </div>
            
     </div>

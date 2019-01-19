@@ -3,7 +3,8 @@
         <img src="{{$product->dp()['src']}}" alt="{{$product->dp()['alt']}}" class="dp dp-sm">
         <div>
             <a href="{{route('biz.product.show',[$product->business->slug,$product->slug])}}">{{$product->name}}</a>
-            <br><small><a href="{{route('product.category.show',$product->category->slug)}}">{{$product->category->name}}</a></small>       
+            <br>
+            <small><span class="grey">category: </span><a href="{{route('category.show',$product->category->slug)}}">{{$product->category->name}}</a></small>       
         </div>
     </div>
     <div class="mb-1">
@@ -11,5 +12,6 @@
             {!!$product->description()!!}
         </div>
     </div>
+    @include('product.widgets.tags')
     <small class="grey"><i class="fa fa-user"></i>  {{$product->business->name}} <a href="{{route('business',$product->business->slug)}}">{{$product->business->slug()}}</a></small>
 </div>

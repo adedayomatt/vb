@@ -11,31 +11,9 @@
             @endif
         </div>  
 
-        <div class="form-group row">
-            <div class="col-sm-4">
-                {{form::label('category', 'Product category')}}
-            </div>
-            <div class="col-sm-8">
-            <?php
-                    $categories = array();
-                    foreach($_productCategories::all() as $c){
-                        $categories["$c->id"] = $c->name; 
-                    }
-                ?>
-                {{form::select('category',$categories,null,
-                ['class'=>'form-control','placeholder' => 'Select category','required'])}}
-
-                @if ($errors->has('category'))
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('category') }}</strong>
-                </span>
-                 @endif
-            </div>
-        </div>
-
         <div class="form-group">
             {{form::label('description', 'Description')}}
-            {{form::textarea('description',old('description'),['id'=>'ckeditor','class'=>'form-control', 'placeholder'=>'All there is to know about the product...'])}}
+            {{form::textarea('description',old('description'),['class'=>'ckeditor form-control', 'placeholder'=>'All there is to know about the product...'])}}
             @if ($errors->has('description'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('description') }}</strong>
@@ -52,6 +30,18 @@
                 </span>
             @endif
         </div> 
+
+        <div class="form-group row justify-content-center">
+            <div class="col-sm-8">
+                @include('category.attach')
+            </div>
+        </div>
+
+        <div class="form-group row justify-content-center">
+            <div class="col-sm-8">
+                @include('tag.components.attach')
+            </div>
+        </div>
 
     </fieldset>
 

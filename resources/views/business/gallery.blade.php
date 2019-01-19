@@ -16,13 +16,11 @@
     @else
         <h4>Update business avatar and cover photo</h4>
     @endif
-    @include('components.forms.business.avatar')
-    @include('components.forms.business.cover')
+    @include('business.forms.avatar')
+    @include('business.forms.cover')
 @endsection
 
 @section('main')
-<div class="row">
-    <div class="col-12">
         <h2>Gallery</h2>
         <p class="help-text">Give your customers' eyes something to feed on when visiting your page</p>
             <div class="text-center">
@@ -34,14 +32,11 @@
                     <p class="text-danger"><i class="fa fa-triangle-exclamation"></i>  No photo added yet</p>
                 @endif
             </div>
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    @include('components.forms.business.gallery')
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    @include('business.forms.gallery')
                 </div>
             </div>
-        
-    </div>
-</div>
 @endsection
 
 @section('b-scripts')

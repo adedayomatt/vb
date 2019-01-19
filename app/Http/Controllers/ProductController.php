@@ -3,21 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Traits\ProductTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Matto\FileUpload;
 
-use App\Traits\ProductTrait;
 
 class ProductController extends Controller
 {
     use ProductTrait;
 
     public function __construct(){
-        $this->middleware(['auth:vendor','verifiedvendor'])->except(['index','show']);
+        $this->middleware(['auth:vendor','verifiedvendor'])->except(['search','index','show']);
     }
-    /**
+
+    public function search(Request $request){
+        $keyword = $request->get('q');
+        $from = $request->get('in');
+        if($from !== null){
+            $business = $this->getBusiness($from);
+            return Product::where('business_id',$business->id)->search($keyword)->with('business')->get();
+        }
+        return Product::search($keyword)->with('business')->get();
+        }
+
+        /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -56,12 +67,14 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->business_id = Auth::guard('vendor')->user()->business->id;
-        $product->product_category_id = $request->category;
+        $product->category_id = $request->category;
         $product->name = $request->product_name;
         $product->description = $request->description;
         $product->price = $request->price;
-        $product->slug = str_slug($request->product_name);
+        $product->slug = $this->generateSlug(Product::class,$request->product_name);
         $product->save();
+
+        $product->tags()->attach($request->tags);
 
         return redirect()->route('edit.product.gallery',[Auth::guard('vendor')->user()->business->slug,$product->slug])->with('new','true');
     }
@@ -74,7 +87,7 @@ class ProductController extends Controller
      */
     public function show($business,$product)
     {
-        return view('product.show')->with('product',$this->getProduct($product));
+        return view('themes.m4u.single-product')->with('product',$this->getProduct($product));
     }
 
     /**
@@ -106,14 +119,19 @@ class ProductController extends Controller
 
         $this->validate($request, $this->validationRules());
         $product =$this->getProduct($product);
-        $product->product_category_id = $request->category;
+        $product->category_id = $request->category;
         $product->name = $request->product_name;
         $product->description = $request->description;
         $product->price = $request->price;
-        $product->slug = str_slug($request->product_name);
+        $newSlug = $this->updateSlug($product,$request->product_name);
+        $product->slug =  $newSlug;
         $product->save();
 
-        return redirect()->route('biz.product.show',$product->slug);
+        if($request->exists('tags')){
+            $product->tags()->sync($request->tags);
+        }
+
+        return redirect()->route('biz.product.show', [$product->business->slug,$newSlug]);
     }
 
     /**

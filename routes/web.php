@@ -11,6 +11,16 @@
 |
 */
 
+Route::get('/', 'AppController@index')->name('home');
+
+Route::resource('tag','TagController');
+Route::get('tags', 'TagController@index')->name('tags');
+Route::get('search/tag', 'TagController@search')->name('search.tag');
+
+Route::resource('category','CategoryController');
+Route::get('categories', 'CategoryController@index')->name('categories');
+Route::get('search/category', 'CategoryController@search')->name('search.category');
+
 //User Authentication routes
 Route::group(['prefix' => 'user'],function(){
 	Route::get('login','Auth\User\LoginController@showLoginForm')->name('user.login.form');
@@ -46,29 +56,18 @@ Route::group(['prefix' => 'vendor'],function(){
 	}
 );
 
-Route::get('/', 'AppController@index')->name('home');
 
 Route::get('@{business}','BusinessController@show')->name('business');
 Route::get('businesses','BusinessController@index')->name('businesses');
-Route::resource('business/category','BusinessCategoryController',['as'=>'biz']);//biz.category.[index,create,store,show,edit,update,destroy]
-Route::get('business/categories','BusinessCategoryController@index')->name('business.categories');
-Route::resource('business/tag','BusinessTagController',['as'=>'biz']);//biz.tag.[index,create,store,show,edit,update,destroy]
-Route::get('business/tags','BusinessTagController@index')->name('business.tags');
+Route::get('search/business', 'BusinessController@search')->name('search.business');
 
 Route::get('products','ProductController@index')->name('products');
 Route::resource('@{business}/product','ProductController',['as'=>'biz']); //biz.product.[index,create,store,show,edit,update,destroy]
-Route::resource('product/category','ProductCategoryController',['as'=>'product']);//product.category.[index,create,store,show,edit,update,destroy]
-Route::get('product/categories','ProductCategoryController@index')->name('product.categories');
-Route::resource('product/tag','ProductTagController',['as'=>'product']);//product.tag.[index,create,store,show,edit,update,destroy]
-Route::get('product/tags','ProductTagController@index')->name('product.tags');
-
+Route::get('search/product', 'ProductController@search')->name('search.product');
 
 Route::get('services','ServiceController@index')->name('services');
 Route::resource('@{business}/service','ServiceController',['as'=>'biz']); //biz.service.[index,create,store,show,edit,update,destroy]
-Route::resource('service/category','ServiceCategoryController',['as'=>'service']);//service.category.[index,create,store,show,edit,update,destroy]
-Route::get('service/categories','ServiceCategoryController@index')->name('service.categories');
-Route::resource('service/tag','ServiceTagController',['as'=>'service']);//service.tag[index,create,store,show,edit,update,destroy]
-Route::get('service/tags','ServiceTagController@index')->name('service.tags');
+Route::get('search/service', 'ServiceController@search')->name('search.service');
 
 // Authenticated vendors only (verifiesd or not)
 Route::group(['middleware' => 'auth:vendor'], function(){

@@ -12,34 +12,19 @@
             @endif
         </div>  
 
-        <div class="form-group row">
-            <div class="col-sm-4">
-                {{form::label('category', 'Category')}}
-            </div>
+        <div class="form-group row justify-content-center">
             <div class="col-sm-8">
-                <?php
-                    $categories = array();
-                    foreach($_businessCategories::all() as $c){
-                        $categories["$c->id"] = $c->name; 
-                    }
-                ?>
-                {{form::select('category',$categories,null,
-                ['class'=>'form-control','placeholder' => 'Select category','required'])}}
-                @if ($errors->has('category'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('category') }}</strong>
-                    </span>
-                @endif
+               @include('category.attach')
             </div>
         </div>
 
 
         <div class="form-group">
-            {{form::label('description', 'Description')}}
-            {{form::textarea('description',old('description'),['id'=>'ckeditor','class'=>'form-control', 'placeholder'=>'Let people know about your business'])}}
-            @if ($errors->has('description'))
+            {{form::label('about', 'About')}}
+            {{form::textarea('about',old('about'),['class'=>'ckeditor form-control', 'placeholder'=>'Let people know about your business'])}}
+            @if ($errors->has('about'))
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('description') }}</strong>
+                    <strong>{{ $errors->first('about') }}</strong>
                 </span>
             @endif
         </div>
@@ -110,6 +95,12 @@
             </div>
 
         </div> 
+
+        <div class="form-group row justify-content-center">
+            <div class="col-sm-8">
+                @include('tag.components.attach')
+            </div>
+        </div>
     
     <div class="row">
         <div class="col-sm-6 offset-sm-3">
