@@ -5,7 +5,7 @@
 <div class="card widget">
        <div class="card-header">
             <h5>{{$title}}</h5>
-                <input class="product-search form-control" type="text" placeholder="search for product...">
+                @include('product.widgets.search')
         </div>
        <div class="card-body p-0">
             @if($collection->count() >0 )

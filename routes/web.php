@@ -19,6 +19,8 @@ Route::get('search/tag', 'TagController@search')->name('search.tag');
 
 Route::resource('category','CategoryController');
 Route::get('categories', 'CategoryController@index')->name('categories');
+Route::get('category/{category}/businesses', 'CategoryController@businesses')->name('category.businesses');
+Route::get('category/{category}/products', 'CategoryController@products')->name('category.products');
 Route::get('search/category', 'CategoryController@search')->name('search.category');
 
 //User Authentication routes
@@ -76,6 +78,8 @@ Route::group(['middleware' => 'auth:vendor'], function(){
 
 // Verified vendors only
 Route::group(['middleware' => ['auth:vendor','verifiedvendor']], function(){
+
+	Route::get('@{business}/dashboard','BusinessController@dashboard')->name('dashboard');
 	// business routes
 	Route::get('business/create','BusinessController@create')->name('create.business');
 	Route::post('business/create','BusinessController@store')->name('store.business');

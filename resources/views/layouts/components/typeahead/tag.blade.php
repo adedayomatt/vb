@@ -31,7 +31,7 @@
                             result += '<small class="mr-3"><a href="'+tagURL+'#businesses">'+data.businesses.length+' businesses</a></small>';
                             result += '<small class="mr-3"><a href="'+tagURL+'#products">'+data.products.length+' products</a></small>';
                             result += '<small><a href="'+tagURL+'#services">'+data.services.length+' services</a></small>';
-                         result += '</div></div>'
+                         result += '</div></div>';
                     return result;
             }
             }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 	<head>
-		@include('layouts.components.meta-head')
+		@include('layouts.components.meta-data')
         @include('layouts.components.head-scripts')
         @include('layouts.components.styles')
 	</head>
@@ -33,6 +33,6 @@
 		   
 		</div>
 		
-	@include('layouts.inc.scripts')
+	@include('layouts.inc.bottom-scripts')
 	</body>
 </html>

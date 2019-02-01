@@ -31,7 +31,7 @@
                     var result = '<div class="list-group-item"><strong><a href="'+productURL+'">'+data.name+'</a></strong><div class="grey">';
                             result += '<div class="text-right"><span class="figure">N '+data.price+'</span></div>';
                             result += '<p>'+data.business.name+'<small class="ml-3"><a href="'+bizURL+'">@'+data.business.slug+'</a></small></p>';
-                         result += '</div></div>'
+                         result += '</div></div>';
                     return result;
             }
             }

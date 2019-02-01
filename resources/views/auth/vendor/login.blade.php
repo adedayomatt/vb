@@ -1,20 +1,22 @@
-@extends('layouts.appLHSfixed')
-@section('LHS')
-    @include('ven.banners.login')
-@endsection
-@section('main')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h2>{{ __('Login') }}</h2>
-                </div>
-                <div class="card-body">
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        @include('layouts.components.meta-data')
+        <script src="{{asset('js/stackbox/main.js')}}"></script>
+        @include('layouts.stackbox.components.styles')
+    </head>
+    <body>
+        <div class="auth-wrapper d-flex align-items-center justify-content-center">
+            <div class="auth-box bg-white shadow-sm p-30 pt-50 rounded text-center fadeInDown animated">
+                <!-- <img class="fw-65" src="images/logo.png" alt="Generic placeholder image"> -->
+                <div class="text-size-22 font-weight-normal mt-20">Sign in</div>
+                <div class="mt-5">Sign in by entering the information below.</div>
+                <div class="mt-30">
                     @include('ven.forms.login')
                 </div>
             </div>
         </div>
-    </div>
-</div>
-@endsection
+    </body>
+
+</html>

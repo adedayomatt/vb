@@ -1,23 +1,17 @@
-@extends('layouts.app50-50RHSfixed')
+@extends('layouts.appLHSfixedRHSfixed')
 
 
 @section('LHS')
+@include('category.widget')
+@endsection
+
+@section('main')
     @include('business.widgets.list')
-    @include('category.widget')
-    @include('tag.widget')
+    @include('product.widgets.list')
 @endsection
 
 @section('RHS')
-    <div class="row">
-        <div class="col-md-6">
-            @include('product.widgets.list')
-        </div>  
-        <div class="col-md-6">
-            @include('service.widgets.list')
-        </div>
-    </div>
-
-
+    @include('tag.widget')
 @endsection
 
 

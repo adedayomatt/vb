@@ -30,7 +30,7 @@
                     var result = '<div class="list-group-item"><h5><a href="'+bizURL+'">'+data.name+'</h5><div class="grey">';
                             result += '<small class="mr-3"><a href="'+bizURL+'#products">'+data.products.length+' products</a></small>';
                             result += '<small><a href="'+bizURL+'#services">'+data.services.length+' services</a></small>';
-                         result += '</div></div>'
+                         result += '</div></div>';
                     return result;
             }
             }

@@ -1,7 +1,10 @@
 /* General color scheme */
 body{
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-    font-size: 1.1rem;
+    font-size: .85rem;
+}
+.top-bar-box{
+    z-index: 100;
 }
 nav.theme-secondary-bg a.nav-link{
     
@@ -13,7 +16,7 @@ nav.theme-secondary-bg a.nav-link{
 
 }
 .theme-bg{
-
+    background-color: #000066;
 }
 .theme-btn,
 .theme-btn-alt:hover{
@@ -110,13 +113,15 @@ a[role='tab']:hover{
     font-size: 14px;
     margin: 5px 0;
 }
+
+.content-box{
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0px 3px 3px rgba(0,0,0,.125);
+    margin: 8px 0;
+}
+
 /* Widgets */
-.card.widget{
-    margin: 5px 0;
-}
-.card.widget .card-body{
-    padding: 0;
-}
 .tt-dataset{
     box-shadow: 0px 10px 10px rgba(0,0,0,.3);
     width: 300px;
@@ -130,6 +135,10 @@ a[role='tab']:hover{
 {
     border-left: 1px solid rgba(0,0,0,.125);
     margin-left: 20px;
+    padding-left: 5px;
+}
+.widget .list-group-item{
+    padding: 0 !important;
 }
 .list-group.ball-bullet .list-group-item,
 .list-group.icon-bullet .list-group-item,
@@ -162,10 +171,10 @@ a[role='tab']:hover{
 .list-group.ball-bullet .d-flex,
 .list-group.icon-bullet .d-flex
 {
-    margin-left: -31px;
+    margin-left: -18px;
 }
 .list-group.image-bullet .d-flex{
-    margin-left: -40px;
+    margin-left: -30px;
 }
 
 .list-group.ball-bullet .list-group-item .bullet,
@@ -224,16 +233,19 @@ a[role='tab']:hover{
 }
 
 .feed{
-    border-bottom: 1px solid rgba(0,0,0,.125);
-    padding: 5px 0;
+
 }
 .snippet{
-    background-color: rgba(0,0,0,.025);
+    border: 1px solid #f2f2f2;
+    border-radius: 5px;
     margin:5px 0;
     padding: 5px;
 }
+.snippet:hover{
+    background-color: rgba(0,0,0,.010)
+}
 .comment-replies{
-    max-height: 100px;
+    max-height: 300px;
     overflow-y: hidden;
 }
 .comment-replies:hover{
@@ -242,6 +254,21 @@ a[role='tab']:hover{
 .business-logo{
     width: 50px;
     height: 50px;
+}
+
+/* Businesses */
+.owl-carousel .owl-stage{
+}
+.owl-carousel .owl-item{
+    text-align: center !important;
+}
+.owl-carousel .content-box{
+    border: 1px solid #f7f7f7
+}
+.owl-carousel .item img.carousel-image{
+    width: 100px !important;
+    height: 100px !important;
+    display: inline !important;
 }
 
 
@@ -258,16 +285,6 @@ a[role='tab']:hover{
 }
 /* md screen and above */
 @media (min-width: 768px){
-    .card.widget .card-body{
-        max-height: 80vh;
-        overflow: hidden;
-    }
-    .card.widget .card-body:hover{
-        overflow-y: auto;
-    }
 
-    .comment-replies{
-        max-width: 500px;
-    }
     
 }

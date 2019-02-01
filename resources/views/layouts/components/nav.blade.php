@@ -98,6 +98,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('biz.service.create',[auth('vendor')->user()->business->slug])}}">New Service</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('dashboard',[auth('vendor')->user()->business->slug])}}">Dashboard</a>
+                        </li>
 
                     @else
                         <li class="nav-item">

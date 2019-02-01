@@ -19,6 +19,15 @@ class CategoryController extends Controller
         return view('category.index')->with('categories',Category::all());
     }
 
+    public function businesses($category){
+        $businesses = $this->find(Category::class,$category)->businessess;
+        dd($businesses);
+    }
+    public function products($category){
+        $products = $this->find(Category::class,$category)->products;
+        dd($products);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -1,0 +1,1 @@
+<input class="product-search form-control" type="text" placeholder="search for product..." style="width: 300px">

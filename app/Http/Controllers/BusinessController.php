@@ -74,6 +74,15 @@ class BusinessController extends Controller
         return view('themes.m4u.index')->with('business',$business);
     }
 
+    public function dashboard($business){
+        if(!$this->authorizedVendor($business)){
+            return redirect()->intended($this->redirectTo())->with('info', 'You are not authorized!');
+        }
+
+        return view('business.dashboard.index')->with('business',$this->getBusiness($business));
+
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
